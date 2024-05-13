@@ -39,7 +39,7 @@ def main(msg):
         
         # Set up the goal location
         if msg.data in locations:
-            location_name, (x, y, w) = locations[user_choice]
+            location_name, (x, y, w) = locations[msg.data]
             print("\nGoal Location: {}\n".format(location_name))
             goal = MoveBaseGoal()
             goal.target_pose.header.frame_id = 'map'
