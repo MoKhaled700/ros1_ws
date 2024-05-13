@@ -1,0 +1,8 @@
+<launch>
+
+    <node name="turtle" pkg="turtlesim" type="turtlesim_node" />
+
+    <node name="first_file" pkg="lab_4" type="lab_10.py" />
+    <node name="second_file" pkg="lab_4" type="lab_10_2.py" output="screen" />
+
+</launch>

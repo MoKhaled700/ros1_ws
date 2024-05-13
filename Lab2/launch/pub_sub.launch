@@ -1,0 +1,6 @@
+<launch>
+
+    <node name="publisher" pkg="Lab2" type="talker.py" />
+    <node name="subscriber" pkg="Lab2" type="lis.py" output="screen" />
+
+</launch>

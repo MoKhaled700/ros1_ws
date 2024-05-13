@@ -1,0 +1,80 @@
+left_arm_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - body_lshoulder1
+    - lshoulder12_lshoulder2
+    - lshoulder21_lelbow1
+    - lelbow2_lwrist
+    - lwrist_ldummy1
+    - ldummy1_ldummy2
+  gains:
+    body_lshoulder1:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    lshoulder12_lshoulder2:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    lshoulder21_lelbow1:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    lelbow2_lwrist:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    lwrist_ldummy1:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    ldummy1_ldummy2:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+right_arm_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - body_rshoulder1
+    - rshoulder12_rshoulder2
+    - rshoulder21_relbow1
+    - relbow2_rwrist
+    - rwrist_rdummy1
+    - rdummy1_rdummy2
+  gains:
+    body_rshoulder1:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    rshoulder12_rshoulder2:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    rshoulder21_relbow1:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    relbow2_rwrist:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    rwrist_rdummy1:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1
+    rdummy1_rdummy2:
+      p: 100
+      d: 0.1
+      i: 2
+      i_clamp: 1

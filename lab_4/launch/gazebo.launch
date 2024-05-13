@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        
+        <arg name="world_name" value="$(find lab_4)/worlds/my_map2.world" />
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+        <arg name="recording" value="false" />
+        <arg name="debug" value="false" />
+
+
+    </include>
+    <param name="robot_description" command="$(find xacro)/xacro '$(find lab_4)/urdf/my_robot.xacro'"/>
+    
+
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model rrbot -param robot_description" />
+</launch>

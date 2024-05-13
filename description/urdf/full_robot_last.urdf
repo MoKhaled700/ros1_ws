@@ -1,0 +1,1224 @@
+<robot name="full_robot">
+    <material name="Blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="Black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="White">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+
+
+<link name="base_footprint" />
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.984 0.65 0.095"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.125"/><!--.125-->
+      <material name="Blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0 3.14 0" xyz="0 0 0"/>
+       <geometry>
+          <box size="0.984 0.65 0.095"/>
+        </geometry>
+       </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+  </link>
+  
+  <joint name="base_footprint_to_base_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/><!--0.492135 0 0/-->
+  </joint>
+
+
+
+  <link name="right_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.065" radius="0.125"/>
+      </geometry>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.065" radius="0.125"/>
+      </geometry>
+    </collision>
+    <inertial>
+       <mass value="0.1" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+    </inertial>
+  </link>
+  
+  <link name="left_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.065" radius="0.125"/>
+      </geometry>
+      <origin rpy="1.5707 0 0" xyz="0 0 0"/>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.065" radius="0.125"/>
+      </geometry>
+    </collision>
+    <inertial>
+       <mass value="0.1" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+    </inertial>
+  </link>
+  
+  <link name="caster_wheel_right">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.08" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.08" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+  </link>
+  
+    <link name="caster_wheel_left">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.08" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.08" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+
+  </link>
+  
+<link name="imu_base">
+  <visual>
+    <geometry>
+      <box size="0.06 0.08 0.02" />
+    </geometry>
+    <material name="White" />
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.06 0.08 0.02" />
+    </geometry>
+    <material name="White" />
+  </collision>
+  <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+               iyy="0.0001" iyz="0.0" 
+               izz="0.0001" />
+  </inertial>
+</link>
+
+  <joint name="base_link_to_camera_link" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin rpy="0 0 0" xyz="0 0 1.39"/><!--0.4-->
+  </joint>
+
+<joint name="base_link_to_imu_base" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_base"/>
+    <origin rpy="0 0 0" xyz="0.4 0 0.1825"/>
+  </joint>
+  
+  
+  <joint name="wheel_0_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <axis xyz="0 -1 0"/>
+    <origin xyz="-0.315 0.355 0.12"/>
+  </joint>
+
+  
+
+  <joint name="wheel_1_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <axis xyz="0 -1 0"/>
+    <origin xyz="-0.315 -0.355 0.12"/>
+  </joint>
+
+  
+
+  <joint name="base_link_to_caster_wheel_right" type="continuous">
+    <parent link="base_link"/>
+    <child link="caster_wheel_right"/>
+    <axis xyz="1 1 1"/>
+    <origin rpy="0 0 0" xyz="0.367135 0.2 0"/>
+  </joint>
+
+
+
+  <joint name="base_link_to_caster_wheel_left" type="continuous">
+    <parent link="base_link"/>
+    <child link="caster_wheel_left"/>
+    <axis xyz="1 1 1"/>
+    <origin rpy="0 0 0" xyz="0.367135 -0.2 0.0"/>
+  </joint>
+
+  
+  <link name="kinect_link">
+  <visual>
+    <geometry>
+      <box size="0.064 0.121 0.0381" />
+    </geometry>
+    <material name="Black" />
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.064 0.121 0.0381" />
+    </geometry>
+    <material name="Black" />
+  </collision>
+   <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+               iyy="0.0001" iyz="0.0" 
+               izz="0.0001" />
+  </inertial>
+</link>
+
+
+<joint name="kinect_depth_joint" type="fixed">
+  <origin xyz="0 0.028 0" rpy="0 0 0" />
+  <parent link="kinect_link" />
+  <child link="kinect_depth_frame" />
+</joint>
+
+<link name="kinect_depth_frame">
+  <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+               iyy="0.0001" iyz="0.0" 
+               izz="0.0001" />
+  </inertial>
+</link>
+
+<joint name="depth_optical_joint" type="fixed">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <parent link="kinect_depth_frame" />
+  <child link="kinect_depth_optical_frame" />
+</joint>
+
+<link name="kinect_depth_optical_frame">
+  <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+               iyy="0.0001" iyz="0.0" 
+               izz="0.0001" />
+  </inertial>
+</link>
+
+<joint name="base_link_to_kinect_link" type="fixed">
+    <parent link="base_link"/>
+    <child link="kinect_link"/>
+    <origin rpy="0 0 0" xyz="0.5 0.2 0.19155"/><!--0.4-->
+  </joint>
+
+
+
+
+ 
+    <link name="leg1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.125" length="0.6" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.125" length="0.6" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="leg2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.125" length="0.6" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.125" length="0.6" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="body">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.14 0.425 0.57" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.7 0.217 0.27" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RMSH">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.065" length="0.01" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.065" length="0.01" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RMSHD">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.16 0.13" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.16 0.13" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RHSH">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.04 0.10 0.26" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.04 0.10 0.26" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RHSHD">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.10 0.05" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.10 0.05" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RE1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.04" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.04" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RE2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.055" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.055" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="RW">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.15" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.15" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="rgb">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="rgb1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.01 0.05 0.08"  />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.005 0.02 0.08"  />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="rgf1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="rgf2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="LMSH">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.065" length="0.01" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.065" length="0.01" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="LMSHD">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.16 0.13" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.16 0.13" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="LHSH">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.04 0.10 0.26" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.04 0.10 0.26" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="LHSHD">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.10 0.05" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.10 0.05" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="LE1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.04" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.04" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="LE2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.055" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.055" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="LW">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.15" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.15" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="lgb">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius="0.05" length="0.02" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    <link name="lgb1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.01 0.05 0.08"  />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.005 0.02 0.08"  />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    
+    <link name="lgf1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="lgf2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 -0.0325" />
+            <geometry>
+                <box size="0.01 0.01 0.065" />
+            </geometry>
+            <material name="blue" />
+            <color rgba="0 0 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="neckbase">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.007" />
+            <geometry>
+                <cylinder radius="0.0625" length="0.014" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.007" />
+            <geometry>
+                <cylinder radius="0.0625" length="0.014" />
+            </geometry>
+            <material name="white" />
+            <color rgba="1 1 1 1" />
+        </collision>
+        <inertial>
+            <mass value="0.129" />
+            <inertia ixx="0.000127" ixy="0.0" ixz="0.0" iyy="0.000127" iyz="0.0" izz="0.000252" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </inertial>
+    </link>
+    
+    <link name="neck1">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.02 0.02 0.076242" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.02 0.02 0.076242" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </collision>
+        <inertial>
+            <mass value="0.16" />
+            <inertia ixx="0.000232" ixy="0.0" ixz="0.0" iyy="0.000232" iyz="0.0" izz="0.0000107" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </inertial>
+    </link>
+    <link name="neck2">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.00425" />
+            <geometry>
+                <box size="0.1 0.1 0.014" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.00425" />
+            <geometry>
+                <box size="0.1 0.1 0.014" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </collision>
+        <!--hna da al mass bta3 al lcd m2sto4 we m4 hgrb beh awl mra assume=0.3 kg , htfr2 fl inertia kda with lcd-->
+        <inertial>
+            <mass value="0.3" />
+            <inertia ixx="0.000274" ixy="0.0" ixz="0.0" iyy="0.000274" iyz="0.0" izz="0.0005" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </inertial>
+    </link>
+    <link name="screen">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.073" />
+            <geometry>
+                <box size="0.004 0.2 0.146" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.073" />
+            <geometry>
+                <box size="0.004 0.2 0.146" />
+            </geometry>
+            <material name="white">
+                <color rgba="1 1 1 1" />
+            </material>
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0" iyy="0" izz="0" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    <link name="camera_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0.0175 0 0" />
+            <geometry>
+                <box size="0.035 0.026 0.032" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <box size="0.035 0.026 0.032" />
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1" />
+            </material>
+        </collision>
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="0" iyy="0" izz="0" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+
+    <joint name="base_link_leg1" type="fixed">
+        <origin xyz="0.09375 0.105 0.46" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="leg1" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="base_link_leg2" type="fixed">
+        <origin xyz="0.09375 -0.105 0.46" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="leg2" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="leg_body" type="fixed">
+        <origin xyz="0.01 -0.105 0.57" rpy="0 0 0" />
+        <parent link="leg1" />
+        <child link="body" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="body_RMSH" type="revolute">
+        <origin xyz="0 0.2125 0.205" rpy="0 0 0" />
+        <parent link="body" />
+        <child link="RMSH" />
+        <limit effort="30" velocity="1.0" lower="0" upper="0.2617" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="body_LMSH" type="revolute">
+        <origin xyz="0 -0.2125 0.205" rpy="0 0 0" />
+        <parent link="body" />
+        <child link="LMSH" />
+        <limit effort="30" velocity="1.0" lower="0" upper="0.2617" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="RMSH_RMSHD" type="fixed">
+        <origin xyz="0 0.085 0" rpy="0 0 0" />
+        <parent link="RMSH" />
+        <child link="RMSHD" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="LMSH_LMSHD" type="fixed">
+        <origin xyz="0 -0.085 0" rpy="0 0 0" />
+        <parent link="LMSH" />
+        <child link="LMSHD" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="RMSHD_RHSH" type="revolute">
+        <origin xyz="0.037 0.03 -0.065" rpy="0 0 0" />
+        <parent link="RMSHD" />
+        <child link="RHSH" />
+        <limit effort="30" velocity="1.0" lower="-0.3489" upper="0.3489" />
+        <axis xyz="1 0 0" />
+    </joint>
+    <joint name="LMSHD_LHSH" type="revolute">
+        <origin xyz="0.037 -0.03 -0.065" rpy="0 0 0" />
+        <parent link="LMSHD" />
+        <child link="LHSH" />
+        <limit effort="30" velocity="1.0" lower="-0.3489" upper="0.3489" />
+        <axis xyz="1 0 0" />
+    </joint>
+    <joint name="RHSH_RHSHD" type="fixed">
+        <origin xyz="-0.037 0 -0.105" rpy="0 0 0" />
+        <parent link="RHSH" />
+        <child link="RHSHD" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="1 0 0" />
+    </joint>
+    <joint name="LHSH_LHSHD" type="fixed">
+        <origin xyz="-0.037 0 -0.105" rpy="0 0 0" />
+        <parent link="LHSH" />
+        <child link="LHSHD" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="1 0 0" />
+    </joint>
+    <joint name="RHSHD_RE1" type="revolute">
+        <origin xyz="0.0175 0 -0.045" rpy="0 0 0" />
+        <parent link="RHSHD" />
+        <child link="RE1" />
+        <limit effort="30" velocity="1.0" lower="0" upper="0.8726" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="LHSHD_LE1" type="revolute">
+        <origin xyz="0.0175 0 -0.045" rpy="0 0 0" />
+        <parent link="LHSHD" />
+        <child link="LE1" />
+        <limit effort="30" velocity="1.0" lower="0" upper="0.8726" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="RE1_RE2" type="fixed">
+        <origin xyz="0 0 -0.0475" rpy="0 0 0" />
+        <parent link="RE1" />
+        <child link="RE2" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="LE1_LE2" type="fixed">
+        <origin xyz="0 0 -0.0475" rpy="0 0 0" />
+        <parent link="LE1" />
+        <child link="LE2" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="RE2_RW" type="revolute">
+        <origin xyz="0 0 -0.1025" rpy="0 0 0" />
+        <parent link="RE2" />
+        <child link="RW" />
+        <limit effort="30" velocity="1.0" lower="-1.1344" upper="0" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="LE2_LW" type="revolute">
+        <origin xyz="0 0 -0.1025" rpy="0 0 0" />
+        <parent link="LE2" />
+        <child link="LW" />
+        <limit effort="30" velocity="1.0" lower="0" upper="1.1344" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="RW_rgb" type="fixed">
+        <origin xyz="0 0 -0.085001" rpy="0 0 0" />
+        <parent link="RW" />
+        <child link="rgb" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="rgb_rgb1" type="fixed">
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+        <parent link="rgb" />
+        <child link="rgb1" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="1 0 0" />
+    </joint>
+    <!---0.0725/-->
+    <joint name="rgb1_rgf1" type="revolute">
+        <origin xyz="0 0.015 -0.04" rpy="0 0 0" />
+        <parent link="rgb1" />
+        <child link="rgf1" />
+        <limit effort="30" velocity="1.0" lower="0" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="rgb1_rgf2" type="revolute">
+        <origin xyz="0 -0.015 -0.04" rpy="0 0 0" />
+        <parent link="rgb1" />
+        <child link="rgf2" />
+        <limit effort="30" velocity="1.0" lower="0" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="LW_lgb" type="fixed">
+        <origin xyz="0 0 -0.085001" rpy="0 0 0" />
+        <parent link="LW" />
+        <child link="lgb" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="lgb_lgb1" type="fixed">
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+        <parent link="lgb" />
+        <child link="lgb1" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="1 0 0" />
+    </joint>
+    <joint name="lgb1_lgf1" type="revolute">
+        <origin xyz="0 -0.015 -0.04" rpy="0 0 0" />
+        <parent link="lgb1" />
+        <child link="lgf1" />
+        <limit effort="30" velocity="1.0" lower="0" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="lgb1_lgf2" type="revolute">
+        <origin xyz="0 0.015 -0.04" rpy="0 0 0" />
+        <parent link="lgb1" />
+        <child link="lgf2" />
+        <limit effort="30" velocity="1.0" lower="0" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    <joint name="body_neckbase" type="fixed">
+        <origin xyz="0 0 0.275" rpy="0 0 0" />
+        <parent link="body" />
+        <child link="neckbase" />
+        <limit effort="30" velocity="1.0" lower="-3" upper="3" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="neckbase_neck1" type="revolute">
+        <origin xyz="0.041342 0 0.045121" rpy="0 0 0" />
+        <parent link="neckbase" />
+        <child link="neck1" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 0 1" />
+    </joint>
+    <joint name="neck1_neck2" type="revolute">
+        <origin xyz="0 0 0.045121" rpy="0 0 0" />
+        <parent link="neck1" />
+        <child link="neck2" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="neck2_screen" type="revolute">
+        <origin xyz="0.05 0 0.0021501" rpy="0 0 0" />
+        <parent link="neck2" />
+        <child link="screen" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <joint name="screen_camera" type="fixed">
+        <origin xyz="0 0.013 0.162" rpy="0 0 0" />
+        <parent link="screen" />
+        <child link="camera_link" />
+        <limit effort="30" velocity="1.0" lower="-1.57" upper="1.57" />
+        <axis xyz="0 1 0" />
+    </joint>
+    
+    
+</robot>
+

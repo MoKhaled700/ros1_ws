@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="tf" type="static_transform_publisher" name="base_link_broadcaster" args="0 0 0.14 0 0 0 base_footprint chassis 10" />
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find description)/urdf/full_robot.urdf'"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="False"/>
+    </node>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find description)/rviz/config1.rviz"/>
+    
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+        <arg name="recording" value="false" />
+        <arg name="debug" value="false" />
+
+
+    </include>
+    
+
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"  args="-urdf -model full_robot -param robot_description" />
+</launch>

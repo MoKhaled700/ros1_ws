@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    
+  <rosparam file="$(find moveit_configurations)/config/ros_controllers.yaml" command="load"/>
+   
+  <arg name="model" default="$(find description)/urdf/full_robot.urdf"/>
+  <arg name="gui" default="true" />
+  
+  <param name="robot_description" textfile="$(find description)/urdf/full_robot.urdf"/>
+	
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="robot_hardware_interface" pkg="description" type="robot_hardware_interface" output="screen"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+  </node>
+  
+  <node name="rviz" pkg="rviz" type="rviz"/>
+    
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+        args="
+        	/left_arm_controller/joints_update
+            /body_lshoulder1/joint1
+            /lshoulder12_lshoulder2/joint2
+            /lshoulder21_lelbow1/joint3
+          
+        "/>
+</launch>
