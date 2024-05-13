@@ -67,7 +67,7 @@ const int L_PWM_B = 6;
 const int PWM_INCREMENT = 1;
  
 // Number of ticks per wheel revolution. We won't use this in this code.
-const int TICKS_PER_REVOLUTION = 40551;
+const int TICKS_PER_REVOLUTION = 10200;
  
 // Wheel radius in meters
 const double WHEEL_RADIUS = 0.224/2;
@@ -77,7 +77,7 @@ const double WHEEL_BASE = 0.71;
  
 // Number of ticks a wheel makes moving a linear distance of 1 meter
 // This value was measured manually.
-const double TICKS_PER_METER = 52869; // Originally ~
+const double TICKS_PER_METER = 14494; // Originally ~
  
 // Proportional constant, which was measured by measuring the 
 // PWM-Linear Velocity relationship for the robot.
