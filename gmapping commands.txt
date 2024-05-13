@@ -1,0 +1,20 @@
+rosbag record -O mylaserdata /scan /tf
+
+rosparam set use_sim_time false
+
+rosrun gmapping slam_gmapping scan:=scan
+
+------------------In a new terminal----------------------------
+
+rosbag play --clock <name of the bag that you downloaded / created in step 1>
+
+
+------------------rosbag finished----------------------------
+
+rosrun map_server map_saver -f <map_name>
+
+-------------------------------------------------------------
+
+rosrun rqt_tf_tree
+
+rosrun tf view_frames

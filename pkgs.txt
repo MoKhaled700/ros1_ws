@@ -1,0 +1,13 @@
+sudo apt-get install gedit
+
+sudo apt-get install ros-noetic-rosserial-arduino
+
+sudo apt-get install ros-noetic-rosserial
+
+sudo apt-get install ros-noetic-teleop-twist-keyboard
+
+sudo apt-get install ros-noetic-map-server
+
+sudo apt-get install ros-noetic-robot-pose-ekf
+
+sudo apt-get install ros-noetic-navigation

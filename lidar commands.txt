@@ -1,0 +1,8 @@
+for windows: [wsl]
+
+usbipd attach --wsl --busid 4-4
+
+sudo chmod 666 /dev/ttyUSB0
+
+
+
